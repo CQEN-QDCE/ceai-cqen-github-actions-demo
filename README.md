@@ -182,7 +182,7 @@ Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode
 
 - Sélectionnez la région: Canada (Central)
 
-Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà créé un projet de génération dans CodeBuild, choisissez-le. Ou vous pouvez créer un projet de génération dans CodeBuild, puis revenir à cette tâche. Suivez les instructions de la sectionCréation d'un pipeline utilisant CodeBuilddans leGuide de l'utilisateur CodeBuild.
+Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà créé un projet de génération dans CodeBuild, choisissez-le. Ou vous pouvez créer un projet de génération dans CodeBuild, puis revenir à cette tâche. Suivez les instructions de la section Création d'un pipeline utilisant CodeBuild dans le Guide de l'utilisateur CodeBuild.
 
 - Cliquez sur créer un projet 
 
