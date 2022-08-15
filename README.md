@@ -79,7 +79,7 @@ jobs:
 
 #### Visualisation des résultats de votre flux de travail
 
-Sur GitHub.com, accédez à la page principale du votre dépot.
+Sur GitHub.com, accédez à la page principale du votre dépôt.
 
 Sous le nom de votre dépot, cliquez sur Actions.
 
