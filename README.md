@@ -223,7 +223,7 @@ Ensuite, nous ferons les sélections suivantes :
 ![](./images/aws_pipeline_9.png)
 
 - Bucket : Sélectionnez le Bucket qui a été configuré pour le site web statique.
-- Extraire le fichier avant le déploiement : Vous devez cocher cette case car le pipeline de code compresse l'artefact.
+- Extraire le fichier avant le déploiement : Vous devez cocher cette case, car le pipeline de code compresse l'artefact.
 - Aucune configuration supplémentaire n'est nécessaire. Cliquez sur le bouton Suivant.
 
 ![](./images/aws_pipeline_10.png)
