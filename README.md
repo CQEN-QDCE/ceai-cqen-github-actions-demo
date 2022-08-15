@@ -81,7 +81,7 @@ jobs:
 
 Sur GitHub.com, accédez à la page principale du votre dépôt.
 
-Sous le nom de votre dépot, cliquez sur Actions.
+Sous le nom de votre dépôt, cliquez sur Actions.
 
 ![](./images/github_action_1.png)
 
