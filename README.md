@@ -31,7 +31,7 @@ Nous allons vous montrer les deux parties: sur GitHub Actions et une autre sur A
 
 ### GitHub Action
 
-Le flux de travail doit être créée dans un dossier .github/workflow/ pour qu'elle soit accessible par GitHub.
+Le flux de travail doit être créé dans un dossier .github/workflow/ pour qu'elle soit accessible par GitHub.
 
 Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
