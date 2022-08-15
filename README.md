@@ -198,7 +198,7 @@ Ensuite, nous ferons les sélections suivantes :
 
 * Image - aws/codebuild/standard:6.0
 
-* Version de l'image - "Toujours utiliser la dernière image pour cette cersion d'execution".
+* Version de l'image - "Toujours utiliser la dernière image pour cette version d'exécution".
 
 * Type d'environnement - Linux
 
