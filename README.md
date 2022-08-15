@@ -27,7 +27,7 @@ Cette démonstration montre comment vous pouvez créer un pipeline CI/CD en util
 
 ## Démarches 
 
-Nous allons vous montrer les deux parties: Sur GitHub Action et une autre sur AWS Code Pipeline
+Nous allons vous montrer les deux parties: sur GitHub Actions et une autre sur AWS Code Pipeline
 
 ### GitHub Action
 
