@@ -39,7 +39,7 @@ Pour créer la structure du dossier, exécutez la commande suivante à la racine
 mkdir .github/workflows/
 ```
 
-Ensuite, Nous allons céréé nos fichiers de flux de travail dans le dossier des flux de travail, ce fichier doit être un fichier yml/yaml.
+Ensuite, nous allons créér nos fichiers de flux de travail dans le dossier des flux de travail, ce fichier doit être un fichier yml/yaml.
 
 Cela créera un fichier appelé ci.yml à l'intérieur de votre dossier workflows, le nom de ce fichier est à vous, vous pouvez donner à ce fichier n'importe quel nom mais assurez-vous qu'il se termine par .yml/.yaml.
 
