@@ -50,9 +50,9 @@ name: Node.js CI task for develop branch
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ dev, pre-prod ]
   pull_request:
-    branches: [ develop ]
+    branches: [ dev, pre-prod ]
 
 jobs:
   build_app:
@@ -104,13 +104,13 @@ Le log vous montre comment chacune des étapes a été traitée. Développez l'u
 
 ### AWS Pipeline
 
-Ajoutez un nouveau fichier appelé ci-pre-prod.yml au répertoire .aws-pipeline/workflows de votre projet
+Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
 ```
 mkdir .aws-pipeline/workflows
 ```
 
-et créer le fichier ci-pre-prod.yml
+Ajoutez un nouveau fichier appelé ci-pre-prod.yml au répertoire .aws-pipeline/workflows de votre projet
 
 ```
 touch ci-pre-prod.yml
@@ -146,7 +146,7 @@ artifacts:
     - index.html
 ```
 
-Connectez-vous à la console CodePipeline.
+Connectez-vous à votre compte AWS et allez sur la console CodePipeline.
 
 #### Étape 1: Création du AWS CodePipeline
 
@@ -159,7 +159,7 @@ Connectez-vous à la console CodePipeline.
 ![](./images/aws_pipeline_1.png)
 
 
-#### Étape 2 : Création d'une étape source
+#### Étape 2 : Création de l'étape source
 
 - Sélectionnez le fournisseur de la source : GitHub - Version 2 (recommandé).
  
@@ -174,7 +174,7 @@ Connectez-vous à la console CodePipeline.
 Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissez CodePipeline par. L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
 
 
-#### Étape 3 : Création d'une étape de génération
+#### Étape 3 : Création de l'étape de génération
 
 - Sélectionnez le fournisseur de la génération : AWS CodeBuild.
 
@@ -190,25 +190,25 @@ Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà
 
 Ensuite, nous ferons les sélections suivantes :
 
-* Image d'environnement - Image gérée
+* Image d'environnement: Image gérée
 
-* Système d'exploitation - Ubuntu
+* Système d'exploitation: Ubuntu
 
-* Runtime(s) - Standard
+* Runtime(s): Standard
 
-* Image - aws/codebuild/standard:6.0
+* Image: aws/codebuild/standard:6.0
 
-* Version de l'image - "Toujours utiliser la dernière image pour cette version d'exécution".
+* Version de l'image: "Toujours utiliser la dernière image pour cette version d'exécution".
 
-* Type d'environnement - Linux
+* Type d'environnement:Linux
 
-* Spécifications de la génération - Utiliser un fichier buildspec
+* Spécifications de la génération: Utiliser un fichier buildspec
 
-* Sélectionnez Nouveau rôle de service. Donnez-lui un nom significatif : ceai-cicd-demo-build-role
+* Sélectionnez Nouveau rôle de service: Donnez-lui un nom significatif : ceai-cicd-demo-build-role
 
 ![](./images/aws_pipeline_6.png)
 
-* Nom du fichier buildspec - .aws-pipeline/workflows/ci-pre-prod.yml
+* Nom du fichier buildspec: .aws-pipeline/workflows/ci-pre-prod.yml
 
 ![](./images/aws_pipeline_7.png)
 
@@ -216,7 +216,7 @@ Ensuite, nous ferons les sélections suivantes :
 
 ![](./images/aws_pipeline_8.png)
 
-#### Étape 4: Création d'une étape de déploiement
+#### Étape 4: Création de l'étape de déploiement
 
 - Déployer le fournisseur : Sélectionnez Amazon S3
 
