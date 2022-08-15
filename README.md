@@ -151,7 +151,7 @@ Connectez-vous à la console CodePipeline.
 #### Étape 1: Création du AWS CodePipeline
 
 - Donnez au pipeline un nom significatif : ceai-cicd-demo-pipeline
-- Sélectionnez Nouveau rôle de service. Donnez-lui un nom significatif : ceai-cicd-demo-pipeline-role
+- Sélectionnez "Nouveau rôle de service". Donnez-lui un nom significatif : ceai-cicd-demo-pipeline-role
 - Magasin d'artefact : Choisissez l'option Default location
 - Bucket : sélectionnez le s3 bucket dans lequel le site web statique est hébergé.
 - Cliquez sur le bouton Suivant
