@@ -41,7 +41,7 @@ mkdir .github/workflows/
 
 Ensuite, nous allons créér nos fichiers de flux de travail dans le dossier des flux de travail, ce fichier doit être un fichier yml/yaml.
 
-Cela créera un fichier appelé ci.yml à l'intérieur de votre dossier workflows, le nom de ce fichier est à vous, vous pouvez donner à ce fichier n'importe quel nom mais assurez-vous qu'il se termine par .yml/.yaml.
+Cela créera un fichier appelé ci.yml à l'intérieur de votre dossier workflows, le nom de ce fichier est à vous, vous pouvez donner à ce fichier n'importe quel nom, mais assurez-vous qu'il se termine par .yml/.yaml.
 
 Ouvrez le fichier ci.yml et collez l'extrait de code ci-dessous
 
