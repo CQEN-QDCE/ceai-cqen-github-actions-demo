@@ -9,11 +9,12 @@
 </div>
 <!-- FIN ENTETE -->
 
+
 Cette démonstration montre comment vous pouvez créer un pipeline CI/CD en utilisant le flux de travail d'un type de projet de [production](https://github.com/CQEN-QDCE/ceai-cqen-documentation/blob/main/Guides/CICD/ceai_cicd_workflow.md#production).
 
-En plus cette démonstration est couper en deux une partie sur GitHub Action et une autre sur AWS Code Pipeline
-
 ## Prérequis
+
+- [Avoir lu la documentation du flux de travail](https://github.com/CQEN-QDCE/ceai-cqen-documentation/blob/main/Guides/CICD/ceai_cicd_workflow.md)
 
 - Avoir un compte GitHub configuré avec double facteur d'authentification;
 
@@ -26,9 +27,11 @@ En plus cette démonstration est couper en deux une partie sur GitHub Action et 
 
 ## Démarches 
 
+Nous allons vous montrer les deux parties: Sur GitHub Action et une autre sur AWS Code Pipeline
+
 ### GitHub Action
 
-le flux de travail doit être créée dans un dossier .github/workflow/ pour qu'elle soit accessible par GitHub.
+Le flux de travail doit être créée dans un dossier .github/workflow/ pour qu'elle soit accessible par GitHub.
 
 Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
@@ -74,7 +77,7 @@ jobs:
     - run: mocha test.js
 ```
 
-## Visualisation des résultats de votre flux de travail
+#### Visualisation des résultats de votre flux de travail
 
 Sur GitHub.com, accédez à la page principale du votre dépot.
 
@@ -145,7 +148,7 @@ artifacts:
 
 Connectez-vous à la console CodePipeline.
 
-#### Étape 1:
+#### Étape 1: Création du AWS CodePipeline
 
 - Donnez au pipeline un nom significatif : ceai-cicd-demo-pipeline
 - Sélectionnez Nouveau rôle de service. Donnez-lui un nom significatif : ceai-cicd-demo-pipeline-role
@@ -185,27 +188,27 @@ Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà
 
 ![](./images/aws_pipeline_5.png)
 
-- Ensuite, nous ferons les sélections suivantes :
+Ensuite, nous ferons les sélections suivantes :
 
-Image d'environnement - Image gérée
+* Image d'environnement - Image gérée
 
-Système d'exploitation - Ubuntu
+* Système d'exploitation - Ubuntu
 
-Runtime(s) - Standard
+* Runtime(s) - Standard
 
-Image - aws/codebuild/standard:6.0
+* Image - aws/codebuild/standard:6.0
 
-Version de l'image - "Toujours utiliser la dernière image pour cette cersion d'execution".
+* Version de l'image - "Toujours utiliser la dernière image pour cette cersion d'execution".
 
-Type d'environnement - Linux
+* Type d'environnement - Linux
 
-Spécifications de la génération - Utiliser un fichier buildspec
+* Spécifications de la génération - Utiliser un fichier buildspec
 
-Sélectionnez Nouveau rôle de service. Donnez-lui un nom significatif : ceai-cicd-demo-build-role
+* Sélectionnez Nouveau rôle de service. Donnez-lui un nom significatif : ceai-cicd-demo-build-role
 
 ![](./images/aws_pipeline_6.png)
 
-Nom du fichier buildspec - .aws-pipeline/workflows/ci-pre-prod.yml
+* Nom du fichier buildspec - .aws-pipeline/workflows/ci-pre-prod.yml
 
 ![](./images/aws_pipeline_7.png)
 
@@ -213,7 +216,7 @@ Nom du fichier buildspec - .aws-pipeline/workflows/ci-pre-prod.yml
 
 ![](./images/aws_pipeline_8.png)
 
-4. étape 4
+#### Étape 4: Création d'une étape de déploiment
 
 - Déployer le fournisseur : Sélectionnez Amazon S3
 
@@ -236,3 +239,15 @@ Allez sur votre domaine à partir du navigateur web.
 ![](./images/aws_pipeline_12.png)
 
 Et voilà, il est maintenant déployé.
+
+## Références
+
+[AWS codepipline](https://aws.amazon.com/fr/codepipeline/)
+
+[Tutoriel pour le déploiement d'un site statique sur AWS](https://medium.com/avmconsulting-blog/automate-static-website-deployment-from-github-to-s3-using-aws-codepipeline-16acca25ebc1)
+
+[Guide de l'utilisation de github au CEAI](https://github.com/CQEN-QDCE/ceai-cqen-documentation/tree/main/Guides/Github)
+
+[Guide de l'utilisation de CI/CD au CEAI](https://github.com/CQEN-QDCE/ceai-cqen-documentation/tree/main/Guides/CICD)
+
+[Déploiement de la page d'accueil du CEAI](https://github.com/CQEN-QDCE/ceai-cqen-deployments/tree/main/plateform_web)
