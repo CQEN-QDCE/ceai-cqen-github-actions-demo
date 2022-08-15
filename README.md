@@ -171,7 +171,7 @@ Connectez-vous à la console CodePipeline.
 
 ![](./images/aws_pipeline_3.png)
 
-Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissezCodePipeline par. L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
+Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissez CodePipeline par. L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
 
 
 #### Étape 3 : Création d'une étape de génération
