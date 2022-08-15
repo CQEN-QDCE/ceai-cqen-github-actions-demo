@@ -1,13 +1,13 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI task for pre-prod branch
+name: Node.js CI task for dev/pre-prod branch
 
 on:
   push:
-    branches: [ pre-prod ]
+    branches: [ dev, pre-prod ]
   pull_request:
-    branches: [ pre-prod ]
+    branches: [ dev, pre-prod ]
 
 jobs:
   build_app:
@@ -18,15 +18,15 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-    - run: echo "Install mocha JavaScript test framework for Node.js"
+    - run: echo "Installing mocha JavaScript test framework for Node.js"
     - run: npm i -g mocha
-    - run: echo "Install dependencies"
+    - run: echo "Installing dependencies"
     - run: npm install
-    - run: echo "Install unit testing framework"
+    - run: echo "Installing unit testing framework"
     - run: npm install unit.js
-    - run: echo "Clean install of your dependencies"
+    - run: echo "Cleaning install of your dependencies"
     - run: npm ci
-    - run: echo "Build your package"
+    - run: echo "Building your package"
     - run: npm run build --if-present
-    - run: echo "Test your app"
+    - run: echo "Testing your app"
     - run: mocha test.js
