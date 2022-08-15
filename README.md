@@ -216,7 +216,7 @@ Ensuite, nous ferons les sélections suivantes :
 
 ![](./images/aws_pipeline_8.png)
 
-#### Étape 4: Création d'une étape de déploiment
+#### Étape 4: Création d'une étape de déploiement
 
 - Déployer le fournisseur : Sélectionnez Amazon S3
 
