@@ -108,6 +108,7 @@ Pour créer la structure du dossier, exécutez la commande suivante à la racine
 
 ```
 mkdir .aws-pipeline/workflows
+cd aws-pipeline/workflows/
 ```
 
 Ajoutez un nouveau fichier appelé ci-pre-prod.yml au répertoire .aws-pipeline/workflows de votre projet
