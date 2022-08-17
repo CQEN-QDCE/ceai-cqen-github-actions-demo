@@ -146,7 +146,7 @@ artifacts:
     - index.html
 ```
 
-Connectez-vous à votre compte AWS et allez sur la console CodePipeline.
+Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console CodePipeline.
 
 #### Étape 1: Création du AWS CodePipeline
 
