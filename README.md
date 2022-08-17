@@ -261,7 +261,7 @@ Et voilà, il est maintenant déployé.
 
 #### Nettoyage (effacer les ressources AWS créées)
 
-:warning: Il faut retirer toutes les ressources AWS en cas d'expérimentation 
+:warning: Il faut retirer toutes les ressources AWS en cas d'expérimentation. 
 
 ## Références
 
