@@ -21,4 +21,4 @@ jobs:
     - run: echo "Building your package"
     - run: npm run build --if-present
     - run: echo "Testing your app"
-    - run: mocha test.js
+    - run: npm test
