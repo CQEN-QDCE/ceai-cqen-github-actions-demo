@@ -16,12 +16,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-    - run: echo "Installing mocha JavaScript test framework for Node.js"
-    - run: npm i -g mocha
     - run: echo "Installing dependencies"
     - run: npm install
-    - run: echo "Installing unit testing framework"
-    - run: npm install unit.js
     - run: echo "Cleaning install of your dependencies"
     - run: npm ci
     - run: echo "Building your package"
