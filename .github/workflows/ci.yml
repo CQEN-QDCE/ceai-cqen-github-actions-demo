@@ -18,8 +18,6 @@ jobs:
         node-version: 16.x
     - run: echo "Installing dependencies"
     - run: npm install
-    - run: echo "Cleaning install of your dependencies"
-    - run: npm ci
     - run: echo "Building your package"
     - run: npm run build --if-present
     - run: echo "Testing your app"
