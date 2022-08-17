@@ -2,10 +2,8 @@ name: GitGuardian scan
 
 # on: [push, pull_request]
 on:
-  push:
-    branches: [ dev, prod ]
   pull_request:
-    branches: [ dev, prod ]
+    branches: [ dev, pre-prod, prod ]
 
 jobs:
   scanning:

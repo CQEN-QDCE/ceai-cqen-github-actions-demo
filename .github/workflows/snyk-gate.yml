@@ -2,7 +2,7 @@ name: Snyk Security Gate
 on:
   pull_request:
     branches:
-      [ prod ]
+      [ dev, pre-prod, prod ]
 jobs:
   oss-security:
     runs-on: ubuntu-latest
