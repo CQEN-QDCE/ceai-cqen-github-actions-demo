@@ -1,0 +1,13 @@
+{
+  "name": "cicd-Sample-App",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "async": "^3.2.4",
+    "mocha": "^10.0.0",
+    "unit.js": "^2.1.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}

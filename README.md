@@ -1,198 +1,276 @@
-<!-- PROJECT SHIELDS -->
-<!--
-*** J'utilise les liens avec le "markdown reference style" pour une meilleure lisibilité. 
-*** Les liens de référence sont entourés par des brackets [ ] au lieu de parenteses ( ).
-*** Voir la fin de ce document pour la déclaration des variables de référence. 
-*** Ceci est une syntaxe optionnelle que vous pouvez utiliser. 
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-[![Démarche][demarche-shield]][demarche-url]
-[![License][license-LiLiQ-shield]][license-LiLiQ-url]
+<!-- ENTETE -->
+[![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://www.quebec.ca/gouv/politiques-orientations/vitrine-numeriqc/accompagnement-des-organismes-publics/demarche-conception-services-numeriques)
+[![License](https://img.shields.io/badge/Licence-LiLiQ--P-blue)](https://github.com/CQEN-QDCE/.github/blob/main/LICENCE.md)
 
 ---
-<!-- LOGO DU PROJET OU DE L'ORGANISME PUBLIQUE -->
 
 <div>
-    <img src="./images/mcn.png" />
+    <img src="https://github.com/CQEN-QDCE/.github/blob/main/images/mcn.png" />
 </div>
-
-<!-- PROJET -->
-# Titre du projet 
-
-Faites une introduction au sujet du projet. Décrivez autant possible le contexte général de votre projet ou du sujet traité dans cette documentation. 
-
-## Démarrage 
+<!-- FIN ENTETE -->
 
 
-Ceci est un exemple de la façon dont vous pouvez donner des instructions sur la configuration de votre projet localement.
+Cette démonstration montre comment vous pouvez créer un pipeline CI/CD en utilisant le flux de travail d'un type de projet de [production](https://github.com/CQEN-QDCE/ceai-cqen-documentation/blob/main/Guides/CICD/ceai_cicd_workflow.md#production).
 
-Ces instructions vous permettront d'obtenir une copie du projet opérationnel sur votre machine locale à des fins de développement et de test. Voir la section `déploiement` pour des notes sur la façon de déployer le projet sur un système réel. 
+## Prérequis
 
+- [Avoir lu la documentation du flux de travail](https://github.com/CQEN-QDCE/ceai-cqen-documentation/blob/main/Guides/CICD/ceai_cicd_workflow.md)
 
-### Pré-requis
+- Avoir un compte GitHub configuré avec double facteur d'authentification;
 
-De quoi avez-vous besoin pour installer le logiciel et comment les installer. 
+- [Avoir configuré le GitGuardian](https://github.com/CQEN-QDCE/ceai-cqen-documentation/tree/main/Guides/Github)
 
-Donnez des exemples. 
+- Avoir accès à un compte AWS;
 
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Avoir créé un `Bucket S3` qui est exposé avec `AWS CloudFront`.( [Voir le déploiement de la page d'accueil du CEAI](https://github.com/CQEN-QDCE/ceai-cqen-deployments/tree/main/plateform_web) )
 
 
-### Installation
+## Démarches 
 
-Une série d'exemples étape par étape qui vous expliquent comment faire fonctionner un environnement de développement
+Nous allons vous montrer les deux parties: sur `GitHub Actions` et une autre sur `AWS Code Pipeline`
 
+### GitHub Action
 
-Décrivez chaque étapes
+Le flux de travail doit être créé dans un dossier `.github/workflow` pour qu'elle soit accessible par GitHub.
+
+Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
 ```
-Donnez l'exemple
+mkdir .github/workflows/
+cd .github/workflows
 ```
 
-Et répétez
+Ensuite, nous allons créér nos fichiers de flux de travail dans le dossier des flux de travail, ce fichier doit être un fichier yml/yaml.
 
-```
-jusqu'à la fin
-```
+Cela créera un fichier appelé ci.yml à l'intérieur de votre dossier workflows, le nom de ce fichier est à vous, vous pouvez donner à ce fichier n'importe quel nom, mais assurez-vous qu'il se termine par .yml/.yaml.
 
-Terminez avec un exemple d'extraction de données du système ou de leur utilisation pour une petite démonstration. 
+Ouvrez le fichier ci.yml et collez l'extrait de code ci-dessous
 
-1. Obtenez une clé API gratuite sur [https://example.com](https://example.com)
-2. Clonez le dépôt
+```yml
+name: Node.js CI task for develop branch
 
-   ```sh
-   git clone https://github.com/CQEN-QDCE/nom-du-projet.git
-   ```
+on:
+  push:
+    branches: [ dev, pre-prod ]
+  pull_request:
+    branches: [ dev, pre-prod ]
 
-3. Installez les packages NPM
-
-   ```sh
-   npm install
-   ```
-
-4. Entrez votre API dans `config.js`
-   ```JS
-   const API_KEY = 'ENTREZ VOTRE API';
-   ```
-
-
-## Exemple d'utilisation
-
-Montrez ce que le projet fait de manière aussi concise que possible, les développeurs devraient être en mesure de comprendre **comment** votre projet résout leur problème en regardant l'exemple de code. Assurez-vous que l'API que vous présentez est évidente et que votre code est court et concis.
-
-Utilisez cet espace pour montrer des exemples utiles d'utilisation d'un projet. Des captures d'écran supplémentaires, des exemples de code et des démos fonctionnent bien dans cet espace. Vous pouvez également créer un lien vers d'autres ressources.
-
-_Pour plus d'exemples, veuillez consulter la [Documentation](https://example.com)_
-
-## Référence d'API
-
-Selon la taille du projet, s'il est suffisamment petit et simple, les documents de référence peuvent être ajoutés au README. Pour les projets de taille moyenne à grande, il est important de fournir au moins un lien vers l'endroit où se trouvent les documents de référence de l'API.
-
-## Exécution des tests
-
-Expliquer comment exécuter les tests automatisés pour ce système
-
-### Décomposer en tests de bout en bout
-
-Expliquez ce que ces tests testent et pourquoi
-
-```
-Donnez un exemple
+jobs:
+  build_app:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+    - run: echo "Installing mocha JavaScript test framework for Node.js"
+    - run: npm i -g mocha
+    - run: echo "Installing dependencies"
+    - run: npm install
+    - run: echo "Installing unit testing framework"
+    - run: npm install unit.js
+    - run: echo "Cleaning install of your dependencies"
+    - run: npm ci
+    - run: echo "Building your package"
+    - run: npm run build --if-present
+    - run: echo "Testing your app"
+    - run: mocha test.js
 ```
 
-## Déploiement
+#### Visualisation des résultats de votre flux de travail
 
-Ajoutez des notes supplémentaires sur la façon de déployer ceci sur un système en direct ou sur le cloud. 
+Sur `GitHub.com`, accédez à la page principale du votre dépôt.
 
-## Construit avec
+Sous le nom de votre dépôt, cliquez sur Actions.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - Le framework web utilisé
-* [Maven](https://maven.apache.org/) - Gestion des dépendances
+![](./images/github_action_1.png)
 
+Dans la barre latérale gauche, cliquez sur le flux de travail que vous voulez voir.
 
-## Contribuez
+![](./images/github_action_2.png)
 
-Lisez s'il vous plaît [CONTRIBUTING.md](./CONTRIBUTING.md) pour plus de détails sur notre code de conduite et le processus de soumission des demandes d'extraction.
+Dans la liste des exécutions de flux de travail, cliquez sur le nom de l'exécution que vous voulez voir.
 
-Les contributions sont ce qui fait de la communauté open source un endroit incroyable pour apprendre, inspirer et créer. Toutes les contributions que vous faites sont ** grandement appréciées **.
+![](./images/github_action_3.png)
 
-1. Fourchez le projet;
-2. Créez votre branche de fonctionnalité (`git checkout -b fonctionnalite/nouvelle-fonctionnalite`);
-3. Validez vos modifications (`git commit -m 'Ajouter nouvelle fonctionnalite'`);
-4. Appuyez sur la branche (`git push origin fonctionnalite/nouvelle-fonctionnalite`);
-5. Ouvrir une demande de `PR`.
+Sous Jobs , cliquez sur le job Explore-GitHub-Actions.
 
+![](./images/github_action_4.png)
 
-## Gestion des versions
+Le `log` vous montre comment chacune des étapes a été traitée. Développez l'une des étapes pour afficher ses détails.
 
-Nous utilisons [SemVer](https://semver.org/lang/fr/) pour la gestion des versions. 
-
-Pour les versions disponibles, consultez les [tags sur ce repo](https://github.com/CQEN-QDCE/nom-du-projet/tags).
+![](./images/github_action_5.png)
 
 
-## Contributeurs 
+### AWS Pipeline
 
-Ce projet a été développé par l'équipe <nom de votre équipe>, du <nom de votre ministère>. 
+Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
-Vous pouvez contacter les personnes suivantes sur tout sujet lié à ce projet: 
+```
+mkdir .aws-pipeline/workflows
+cd .aws-pipeline/workflows/
+```
 
-1. Personne 1 <personne1@ministere.gouv.qc.ca>
-1. Personne 2 <personne2@ministere.gouv.qc.ca>
-1. Personne 3 <personne3@ministere.gouv.qc.ca>
+Ajoutez un nouveau fichier appelé `ci-pre-prod.yml` au répertoire `.aws-pipeline/workflows` de votre projet
 
-Voir aussi la liste des [contributeurs](https://github.com/CQEN-QDCE/nom-du-projet/contributors) qui ont participé à ce projet.
+```
+touch ci-pre-prod.yml
+```
+Utilisez le code ci-dessous comme base de votre workflow:
 
-<!-- LICENSE -->
-## License
+```yml
+version: 0.2
 
-Ce projet est sous la Licence Libre du Québec - Permissive (LiLiQ-P) version 1.1. 
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16  
+    commands:
+      - echo Installing mocha JavaScript test framework for Node.js
+      - npm install -g mocha
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+      - npm install unit.js
+      - npm ci
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Testing your app ...
+      - mocha test.js
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - index.html
+```
 
-Référez-vous au fichier [LICENCE.md](LICENCE.md) pour plus de détails. 
+Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console `CodePipeline`.
+
+#### Étape 1: Création du AWS CodePipeline
+
+- Dans le menu à gauche, selectionnez l'option `Pipeline` -> `Pipelines`  et cliquez sur `Create pipeline`
+- Donnez au pipeline un nom significatif : `ceai-cicd-demo-pipeline`
+- Sélectionnez "Nouveau rôle de service". Donnez-lui un nom significatif : `ceai-cicd-demo-pipeline-role`
+- Magasin d'artefact : Choisissez l'option Default location
+- Bucket : sélectionnez le `S3 bucket` dans lequel le site web statique est hébergé.
+- Cliquez sur le bouton Suivant
+
+![](./images/aws_pipeline_1.png)
 
 
-<!-- REMERCIEMENTS -->
-## Remerciements
-* Chapeau à toute personne dont le code a été utilisé
-* Inspiration
-* etc
+#### Étape 2 : Création de l'étape source
 
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
+- Sélectionnez le fournisseur de la source : GitHub - Version 2 (recommandé).
+ 
+![](./images/aws_pipeline_2.png)
+
+- Cliquez sur le bouton Connecter à GitHub. Authentifiez-vous Autorisez `AWS CodePipeline` à accéder à vos référentiels Github.
+- Après l'authentification, sélectionnez le dépôt GitHub contenant les fichiers statiques de votre site Web. 
+- Sélectionnez la branche du dépôt; dans notre cas, il s'agit de la `pre-prod` et de la `prod`.
+
+![](./images/aws_pipeline_3.png)
+
+Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissez `CodePipeline par défaut`. L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
 
 
+#### Étape 3 : Création de l'étape de génération
 
+- Sélectionnez le fournisseur de la génération : `AWS CodeBuild`.
 
+![](./images/aws_pipeline_4.png)
 
-# Références 
+- Sélectionnez la région: Canada (Central)
 
-[Licence Libre du Québec](https://forge.gouv.qc.ca/licence/)
+Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà créé un projet de génération dans `CodeBuild`, choisissez-le. Ou vous pouvez créer un projet de génération dans CodeBuild, puis revenir à cette tâche. Suivez les instructions de la section Création d'un pipeline utilisant `CodeBuild` dans le Guide de l'utilisateur `CodeBuild`.
 
-[Standard for Public Code (en)](https://standard.publiccode.net/)
+- Cliquez sur créer un projet 
 
-[Guide d'opensource](https://opensource.guide/fr/)
+![](./images/aws_pipeline_5.png)
 
-[Comment contribuer a l'opensource](https://opensource.guide/fr/how-to-contribute/)
+Ensuite, nous ferons les sélections suivantes :
 
+* Image d'environnement: `Image gérée`
 
+* Système d'exploitation: `Ubuntu`
 
+* Runtime(s): `Standard`
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+* Image: `aws/codebuild/standard:6.0`
 
-[demarche-url]: https://www.quebec.ca/gouv/politiques-orientations/vitrine-numeriqc/accompagnement-des-organismes-publics/demarche-conception-services-numeriques
-[demarche-shield]: https://img.shields.io/badge/Lifecycle-Experimental-339999
-[license-LiLiQ-url]: ./LICENCE.md
-[license-LiLiQ-shield]: https://img.shields.io/badge/Licence-LiLiQ--R-blue
+* Version de l'image: "Toujours utiliser la dernière image pour cette version d'exécution".
+
+* Type d'environnement: `Linux`
+
+* Spécifications de la génération: Utiliser un fichier `buildspec`
+
+* Sélectionnez Nouveau rôle de service: Donnez-lui un nom significatif : `ceai-cicd-demo-build-role`
+
+![](./images/aws_pipeline_6.png)
+
+* Nom du fichier buildspec: `.aws-pipeline/workflows/ci-pre-prod.yml`
+
+![](./images/aws_pipeline_7.png)
+
+- Cliquez sur le bouton Suivant.
+
+![](./images/aws_pipeline_8.png)
+
+#### Étape 4: Création de l'étape de déploiement
+
+- Déployer le fournisseur : Sélectionnez `Amazon S3`
+
+![](./images/aws_pipeline_9.png)
+
+- Bucket : Sélectionnez le Bucket qui a été configuré pour le site web statique.
+- Extraire le fichier avant le déploiement : Vous devez cocher cette case, car le pipeline de code compresse l'artefact.
+- Aucune configuration supplémentaire n'est nécessaire. Cliquez sur le bouton Suivant.
+
+![](./images/aws_pipeline_10.png)
+
+Vous pouvez revenir en arrière et modifier la configuration si vous avez fait une erreur à l'étape de révision. Cliquez sur le bouton Créer le pipeline.
+
+#### Visualisation des résultats de votre flux de travail sur AWS 
+
+Dans le menu à gauche, selectionnez l'option `Pipeline` -> `Pipelines`  et cliquez sur votre pipeline `ceai-cicd-demo-pipeline`
+
+Lors de l'étape de `Build`, vous pouvez accéder à la journalisation en cliquant sur les détails. 
+
+![](./images/aws_pipeline_11.png)
+
+Le journal vous montre comment chaque étape a été traitée.
+
+![](./images/aws_pipeline_12.png)
+
+En cliquant sur `Détail de la phase`, vous pouvez en voir davantage. 
+
+![](./images/aws_pipeline_13.png)
+
+Si votre pipeline a été créé avec succès, vous recevrez trois coches vertes sur `Source`, `Build` et `Deploy`.
+
+![](./images/aws_pipeline_14.png)
+
+Allez sur votre domaine à partir du navigateur web. (Vous pouvez le trouver à partir du service `AWS Cloud Front`)
+
+![](./images/aws_pipeline_15.png)
+
+Et voilà, il est maintenant déployé.
+
+#### Nettoyage (effacer les ressources AWS créées)
+
+:warning: Il faut retirer toutes les ressources AWS en cas d'expérimentation. 
+
+## Références
+
+[AWS codepipline](https://aws.amazon.com/fr/codepipeline/)
+
+[Tutoriel pour le déploiement d'un site statique sur AWS](https://medium.com/avmconsulting-blog/automate-static-website-deployment-from-github-to-s3-using-aws-codepipeline-16acca25ebc1)
+
+[Guide de l'utilisation de github au CEAI](https://github.com/CQEN-QDCE/ceai-cqen-documentation/tree/main/Guides/Github)
+
+[Guide de l'utilisation de CI/CD au CEAI](https://github.com/CQEN-QDCE/ceai-cqen-documentation/tree/main/Guides/CICD)
+
+[Déploiement de la page d'accueil du CEAI](https://github.com/CQEN-QDCE/ceai-cqen-deployments/tree/main/plateform_web)
