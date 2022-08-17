@@ -150,6 +150,7 @@ Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console C
 
 #### Étape 1: Création du AWS CodePipeline
 
+- Dans le menu à gauche, selectionnez l'option "Pipeline -> Pipelines"  et cliquez sur "Create pipeline"
 - Donnez au pipeline un nom significatif : ceai-cicd-demo-pipeline
 - Sélectionnez "Nouveau rôle de service". Donnez-lui un nom significatif : ceai-cicd-demo-pipeline-role
 - Magasin d'artefact : Choisissez l'option Default location
