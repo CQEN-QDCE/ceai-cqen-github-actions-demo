@@ -259,6 +259,10 @@ Allez sur votre domaine à partir du navigateur web. (Vous pouvez le trouver à 
 
 Et voilà, il est maintenant déployé.
 
+#### Nettoyage (effacer les ressources AWS créées)
+
+:warning: Il faut retirer toutes les ressources AWS en cas d'expérimentation 
+
 ## Références
 
 [AWS codepipline](https://aws.amazon.com/fr/codepipeline/)
