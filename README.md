@@ -22,21 +22,22 @@ Cette démonstration montre comment vous pouvez créer un pipeline CI/CD en util
 
 - Avoir accès à un compte AWS;
 
-- Avoir créé un Bucket S3 qui est exposé avec AWS CloudFront.( [Voir le déploiement de la page d'accueil du CEAI](https://github.com/CQEN-QDCE/ceai-cqen-deployments/tree/main/plateform_web) )
+- Avoir créé un `Bucket S3` qui est exposé avec `AWS CloudFront`.( [Voir le déploiement de la page d'accueil du CEAI](https://github.com/CQEN-QDCE/ceai-cqen-deployments/tree/main/plateform_web) )
 
 
 ## Démarches 
 
-Nous allons vous montrer les deux parties: sur GitHub Actions et une autre sur AWS Code Pipeline
+Nous allons vous montrer les deux parties: sur `GitHub Actions` et une autre sur `AWS Code Pipeline`
 
 ### GitHub Action
 
-Le flux de travail doit être créé dans un dossier .github/workflow/ pour qu'elle soit accessible par GitHub.
+Le flux de travail doit être créé dans un dossier `.github/workflow` pour qu'elle soit accessible par GitHub.
 
 Pour créer la structure du dossier, exécutez la commande suivante à la racine du répertoire de votre projet
 
 ```
 mkdir .github/workflows/
+cd .github/workflows
 ```
 
 Ensuite, nous allons créér nos fichiers de flux de travail dans le dossier des flux de travail, ce fichier doit être un fichier yml/yaml.
@@ -79,7 +80,7 @@ jobs:
 
 #### Visualisation des résultats de votre flux de travail
 
-Sur GitHub.com, accédez à la page principale du votre dépôt.
+Sur `GitHub.com`, accédez à la page principale du votre dépôt.
 
 Sous le nom de votre dépôt, cliquez sur Actions.
 
@@ -97,7 +98,7 @@ Sous Jobs , cliquez sur le job Explore-GitHub-Actions.
 
 ![](./images/github_action_4.png)
 
-Le log vous montre comment chacune des étapes a été traitée. Développez l'une des étapes pour afficher ses détails.
+Le `log` vous montre comment chacune des étapes a été traitée. Développez l'une des étapes pour afficher ses détails.
 
 ![](./images/github_action_5.png)
 
@@ -108,10 +109,10 @@ Pour créer la structure du dossier, exécutez la commande suivante à la racine
 
 ```
 mkdir .aws-pipeline/workflows
-cd aws-pipeline/workflows/
+cd .aws-pipeline/workflows/
 ```
 
-Ajoutez un nouveau fichier appelé ci-pre-prod.yml au répertoire .aws-pipeline/workflows de votre projet
+Ajoutez un nouveau fichier appelé `ci-pre-prod.yml` au répertoire `.aws-pipeline/workflows` de votre projet
 
 ```
 touch ci-pre-prod.yml
@@ -147,15 +148,15 @@ artifacts:
     - index.html
 ```
 
-Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console CodePipeline.
+Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console `CodePipeline`.
 
 #### Étape 1: Création du AWS CodePipeline
 
-- Dans le menu à gauche, selectionnez l'option "Pipeline -> Pipelines"  et cliquez sur "Create pipeline"
-- Donnez au pipeline un nom significatif : ceai-cicd-demo-pipeline
-- Sélectionnez "Nouveau rôle de service". Donnez-lui un nom significatif : ceai-cicd-demo-pipeline-role
+- Dans le menu à gauche, selectionnez l'option `Pipeline` -> `Pipelines`  et cliquez sur `Create pipeline`
+- Donnez au pipeline un nom significatif : `ceai-cicd-demo-pipeline`
+- Sélectionnez "Nouveau rôle de service". Donnez-lui un nom significatif : `ceai-cicd-demo-pipeline-role`
 - Magasin d'artefact : Choisissez l'option Default location
-- Bucket : sélectionnez le s3 bucket dans lequel le site web statique est hébergé.
+- Bucket : sélectionnez le `S3 bucket` dans lequel le site web statique est hébergé.
 - Cliquez sur le bouton Suivant
 
 ![](./images/aws_pipeline_1.png)
@@ -167,24 +168,24 @@ Dand le navigateur, connectez-vous à votre compte AWS et allez sur la console C
  
 ![](./images/aws_pipeline_2.png)
 
-- Cliquez sur le bouton Connecter à GitHub. Authentifiez-vous Autorisez AWS CodePipeline à accéder à vos référentiels Github.
+- Cliquez sur le bouton Connecter à GitHub. Authentifiez-vous Autorisez `AWS CodePipeline` à accéder à vos référentiels Github.
 - Après l'authentification, sélectionnez le dépôt GitHub contenant les fichiers statiques de votre site Web. 
-- Sélectionnez la branche du dépôt; dans notre cas, il s'agit de la pré-prod et de la prod.
+- Sélectionnez la branche du dépôt; dans notre cas, il s'agit de la `pre-prod` et de la `prod`.
 
 ![](./images/aws_pipeline_3.png)
 
-Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissez "CodePipeline par défaut". L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
+Pour stocker les artefacts de sortie de l'action GitHub à l'aide de la méthode par défaut, choisissez `CodePipeline par défaut`. L'action accède aux fichiers du référentiel GitHub et stocke les artefacts dans un fichier ZIP dans le magasin d'artefacts du pipeline.
 
 
 #### Étape 3 : Création de l'étape de génération
 
-- Sélectionnez le fournisseur de la génération : AWS CodeBuild.
+- Sélectionnez le fournisseur de la génération : `AWS CodeBuild`.
 
 ![](./images/aws_pipeline_4.png)
 
 - Sélectionnez la région: Canada (Central)
 
-Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà créé un projet de génération dans CodeBuild, choisissez-le. Ou vous pouvez créer un projet de génération dans CodeBuild, puis revenir à cette tâche. Suivez les instructions de la section Création d'un pipeline utilisant CodeBuild dans le Guide de l'utilisateur CodeBuild.
+Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà créé un projet de génération dans `CodeBuild`, choisissez-le. Ou vous pouvez créer un projet de génération dans CodeBuild, puis revenir à cette tâche. Suivez les instructions de la section Création d'un pipeline utilisant `CodeBuild` dans le Guide de l'utilisateur `CodeBuild`.
 
 - Cliquez sur créer un projet 
 
@@ -192,25 +193,25 @@ Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà
 
 Ensuite, nous ferons les sélections suivantes :
 
-* Image d'environnement: Image gérée
+* Image d'environnement: `Image gérée`
 
-* Système d'exploitation: Ubuntu
+* Système d'exploitation: `Ubuntu`
 
-* Runtime(s): Standard
+* Runtime(s): `Standard`
 
-* Image: aws/codebuild/standard:6.0
+* Image: `aws/codebuild/standard:6.0`
 
 * Version de l'image: "Toujours utiliser la dernière image pour cette version d'exécution".
 
-* Type d'environnement:Linux
+* Type d'environnement: `Linux`
 
-* Spécifications de la génération: Utiliser un fichier buildspec
+* Spécifications de la génération: Utiliser un fichier `buildspec`
 
-* Sélectionnez Nouveau rôle de service: Donnez-lui un nom significatif : ceai-cicd-demo-build-role
+* Sélectionnez Nouveau rôle de service: Donnez-lui un nom significatif : `ceai-cicd-demo-build-role`
 
 ![](./images/aws_pipeline_6.png)
 
-* Nom du fichier buildspec: .aws-pipeline/workflows/ci-pre-prod.yml
+* Nom du fichier buildspec: `.aws-pipeline/workflows/ci-pre-prod.yml`
 
 ![](./images/aws_pipeline_7.png)
 
@@ -220,7 +221,7 @@ Ensuite, nous ferons les sélections suivantes :
 
 #### Étape 4: Création de l'étape de déploiement
 
-- Déployer le fournisseur : Sélectionnez Amazon S3
+- Déployer le fournisseur : Sélectionnez `Amazon S3`
 
 ![](./images/aws_pipeline_9.png)
 
@@ -232,13 +233,29 @@ Ensuite, nous ferons les sélections suivantes :
 
 Vous pouvez revenir en arrière et modifier la configuration si vous avez fait une erreur à l'étape de révision. Cliquez sur le bouton Créer le pipeline.
 
-Si votre pipeline a été créé avec succès, vous recevrez trois coches vertes sur Source, Build et Deploy.
+#### Visualisation des résultats de votre flux de travail sur AWS 
+
+Dans le menu à gauche, selectionnez l'option `Pipeline` -> `Pipelines`  et cliquez sur votre pipeline `ceai-cicd-demo-pipeline`
+
+Lors de l'étape de `Build`, vous pouvez accéder à la journalisation en cliquant sur les détails. 
 
 ![](./images/aws_pipeline_11.png)
 
-Allez sur votre domaine à partir du navigateur web.
+Le journal vous montre comment chaque étape a été traitée.
 
 ![](./images/aws_pipeline_12.png)
+
+En cliquant sur `Détail de la phase`, vous pouvez en voir davantage. 
+
+![](./images/aws_pipeline_13.png)
+
+Si votre pipeline a été créé avec succès, vous recevrez trois coches vertes sur `Source`, `Build` et `Deploy`.
+
+![](./images/aws_pipeline_14.png)
+
+Allez sur votre domaine à partir du navigateur web. (Vous pouvez le trouver à partir du service `AWS Cloud Front`)
+
+![](./images/aws_pipeline_15.png)
 
 Et voilà, il est maintenant déployé.
 
