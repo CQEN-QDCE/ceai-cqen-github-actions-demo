@@ -22,4 +22,3 @@ jobs:
     - run: npm run build --if-present
     - run: echo "Testing your app"
     - run: npm test
-    - run: npm stop
