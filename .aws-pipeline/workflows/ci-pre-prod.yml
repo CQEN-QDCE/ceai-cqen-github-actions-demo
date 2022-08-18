@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Testing your app ...
-      - mocha test.js
+      - npm test
   post_build:
     commands:
       - echo Build completed on `date`
