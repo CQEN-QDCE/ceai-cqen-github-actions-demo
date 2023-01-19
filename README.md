@@ -1,6 +1,6 @@
 <!-- ENTETE -->
 [![img](https://img.shields.io/badge/Cycle%20de%20Vie-Phase%20B%C3%AAta-339999)](https://www.quebec.ca/gouv/politiques-orientations/vitrine-numeriqc/accompagnement-des-organismes-publics/demarche-conception-services-numeriques)
-[![License](https://img.shields.io/badge/License-Apache2-blue)](LICENSE)
+[![License](https://img.shields.io/badge/Licence-LiLiQ--P-blue)](https://github.com/CQEN-QDCE/.github/blob/main/LICENCE.md)
 
 ---
 
