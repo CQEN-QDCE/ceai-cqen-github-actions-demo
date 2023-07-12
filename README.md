@@ -191,6 +191,7 @@ Dans Nom du projet, choisissez votre projet de génération. Si vous avez déjà
 
 ![](./images/aws_pipeline_5.png)
 
+
 Ensuite, nous ferons les sélections suivantes :
 
 * Image d'environnement: `Image gérée`
